@@ -45,8 +45,8 @@ const Screens = () => {
       return (
         <>
           <Stack.Screen name="Main" component={MainScreen} />
-          <Stack.Screen name="My" component={MyScreen} />
-          <Stack.Screen name="Search" component={SearchScreen} />
+          {/* <Stack.Screen name="My" component={MyScreen} />
+          <Stack.Screen name="Search" component={SearchScreen} /> */}
         </>
       );
 

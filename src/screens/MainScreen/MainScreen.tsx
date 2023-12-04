@@ -111,13 +111,14 @@ export default function MainScreen() {
         onScrollBeginDrag={onScrollBeginDrag}
         onScrollEndDrag={onScrollEndDrag}
         onScroll={onScroll}>
-        <View style={{ marginBottom: 100 }}>
+        <View style={{ marginBottom: 50 }}>
           <MusicListSmall data={data1} onSongSelect={handleSongSelect} />
           <MusicListMedium data={data2} onSongSelect={handleSongSelect} />
         </View>
       </ScrollView>
       <Playlist playlistAnimation={playlistAnimation} />
-      <Bottom playlistAnimation={playlistAnimation} />
+      {/* <Bottom playlistAnimation={playlistAnimation} /> */}
+      <View></View>
     </Screen>
   );
 }
