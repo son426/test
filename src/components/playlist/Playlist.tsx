@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   FlatList,
+  Modal,
 } from 'react-native';
 
 import PlaylistMini from './PlaylistMini';
@@ -30,6 +31,7 @@ import { songs } from '../../dummy';
 import { useRecoilState } from 'recoil';
 import { trackInfoState } from '../../atoms';
 import { ISongData } from '../../screens/MainScreen/MainScreen';
+import Colors from '../../modules/Colors';
 
 const { width, height } = Dimensions.get('window');
 
@@ -61,8 +63,35 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
   const progress = useProgress();
   const scrollX = useRef(new Animated.Value(0)).current;
 
+  const flatListRef = useRef(null);
+
   const [currentTrackInfo, setCurrentTrackInfo] =
     useRecoilState(trackInfoState);
+
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [isShuffle, setIsShuffle] = useState(false);
+
+  const toggleMenu = async () => {
+    setIsMenuVisible(!isMenuVisible);
+
+    if (!isMenuVisible) {
+      // 현재 재생중인 곡의 인덱스 찾기
+      const playingIndex = songs.findIndex(
+        song => song.id === currentTrackInfo.id,
+      );
+
+      // 현재 재생중인 곡으로 스크롤
+      if (playingIndex >= 0) {
+        flatListRef.current?.scrollToIndex({
+          animated: true,
+          index: playingIndex,
+        });
+      }
+    }
+  };
+  const toggleShuffle = () => {
+    setIsShuffle(!isShuffle);
+  };
 
   const updateCurrentTrackInfo = async () => {
     const currentTrackId = await TrackPlayer.getActiveTrackIndex();
@@ -78,7 +107,6 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
         track.artwork &&
         track.id
       ) {
-        console.log(track.artwork);
         setCurrentTrackInfo({
           id: track.id,
           title: track.title,
@@ -92,7 +120,12 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
   };
 
   const skipToNext = async () => {
-    await TrackPlayer.skipToNext();
+    if (isShuffle) {
+      const randomIndex = Math.floor(Math.random() * songs.length);
+      await TrackPlayer.skip(randomIndex);
+    } else {
+      await TrackPlayer.skipToNext();
+    }
     await updateCurrentTrackInfo();
   };
 
@@ -127,60 +160,123 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
     );
   };
 
+  // 곡 항목 렌더링
+  const renderSongItem = ({ item, index }) => {
+    const isPlaying = currentTrackInfo.id === item.id;
+
+    const playSong = async () => {
+      // 먼저 UI를 업데이트하여 곡이 변경되었다는 것을 표시
+      setCurrentTrackInfo({
+        id: item.id,
+        title: item.title,
+        artist: item.artist,
+        genre: item.genre, // genre 정보가 있으면 추가
+        url: item.url,
+        artwork: item.artwork,
+      });
+      toggleMenu();
+
+      // 그 다음 실제로 트랙을 변경
+      await TrackPlayer.skip(index);
+      await updateCurrentTrackInfo();
+    };
+
+    return (
+      <TouchableOpacity
+        onPress={playSong}
+        style={[styles.songItem, isPlaying ? styles.playing : null]}>
+        <Image source={item.artwork} style={styles.artwork} />
+        <View style={styles.songInfo}>
+          <Text
+            style={[styles.songTitle, isPlaying ? styles.playingTitle : null]}>
+            {item.title}
+          </Text>
+          <Text style={styles.songArtist}>{item.artist}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  };
+
+  // 메뉴창 디자인
+  const renderMenu = () => (
+    <Modal
+      animationType="slide"
+      transparent={false}
+      visible={isMenuVisible}
+      onRequestClose={toggleMenu}>
+      <View style={styles.menuContainer}>
+        <FlatList
+          ref={flatListRef}
+          data={songs}
+          renderItem={renderSongItem}
+          keyExtractor={item => item.id.toString()}
+        />
+        <TouchableOpacity style={styles.closeButton} onPress={toggleMenu}>
+          <Text>Close</Text>
+        </TouchableOpacity>
+      </View>
+    </Modal>
+  );
+
   const panResponder = useRef(
     PanResponder.create({
-      onMoveShouldSetPanResponder: () => true,
+      onStartShouldSetPanResponder: () => !isMenuVisible,
+      onMoveShouldSetPanResponder: () => !isMenuVisible,
       onPanResponderMove: (event, gestureState) => {
-        const { dx, dy } = gestureState;
+        if (!isMenuVisible) {
+          const { dx, dy } = gestureState;
 
-        // verticcal scroll
-        if (playlistRef.current === 'mini') {
-          playlistAnimation.setValue(-dy);
-        }
-        if (playlistRef.current === 'full') {
-          playlistAnimation.setValue(height - dy);
+          // verticcal scroll
+          if (playlistRef.current === 'mini') {
+            playlistAnimation.setValue(-dy);
+          }
+          if (playlistRef.current === 'full') {
+            playlistAnimation.setValue(height - dy);
+          }
         }
       },
       onPanResponderEnd: (event, gestureState) => {
-        const { dx, dy } = gestureState;
+        if (!isMenuVisible) {
+          const { dx, dy } = gestureState;
 
-        // vertical scroll
-        if (dy <= -100 && playlistRef.current === 'mini') {
-          Animated.spring(playlistAnimation, {
-            toValue: height,
-            useNativeDriver: false,
-          }).start();
-          playlistRef.current = 'full';
-        }
+          // vertical scroll
+          if (dy <= -100 && playlistRef.current === 'mini') {
+            Animated.spring(playlistAnimation, {
+              toValue: height,
+              useNativeDriver: false,
+            }).start();
+            playlistRef.current = 'full';
+          }
 
-        if (-100 < dy && playlistRef.current === 'mini') {
-          Animated.spring(playlistAnimation, {
-            toValue: 0,
-            useNativeDriver: false,
-          }).start();
-        }
+          if (-100 < dy && playlistRef.current === 'mini') {
+            Animated.spring(playlistAnimation, {
+              toValue: 0,
+              useNativeDriver: false,
+            }).start();
+          }
 
-        if (100 <= dy && playlistRef.current == 'full') {
-          Animated.spring(playlistAnimation, {
-            toValue: 0,
-            useNativeDriver: false,
-          }).start();
-          playlistRef.current = 'mini';
-        }
+          if (100 <= dy && playlistRef.current == 'full') {
+            Animated.spring(playlistAnimation, {
+              toValue: 0,
+              useNativeDriver: false,
+            }).start();
+            playlistRef.current = 'mini';
+          }
 
-        if (dy < 100 && playlistRef.current == 'full') {
-          Animated.spring(playlistAnimation, {
-            toValue: height,
-            useNativeDriver: false,
-          }).start();
-        }
+          if (dy < 100 && playlistRef.current == 'full') {
+            Animated.spring(playlistAnimation, {
+              toValue: height,
+              useNativeDriver: false,
+            }).start();
+          }
 
-        // horizontal scroll
-        const horizontalThreshold = 50;
-        if (Math.abs(dx) > horizontalThreshold) {
-          // changeSong(dx);
-        }
-        if (Math.abs(dx) < horizontalThreshold) {
+          // horizontal scroll
+          const horizontalThreshold = 50;
+          if (Math.abs(dx) > horizontalThreshold) {
+            // changeSong(dx);
+          }
+          if (Math.abs(dx) < horizontalThreshold) {
+          }
         }
       },
     }),
@@ -352,7 +448,10 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
             justifyContent: 'space-between',
             marginTop: 10,
           }}>
-          <TouchableOpacity onPress={skipToPrev}>
+          <TouchableOpacity
+            onPress={() => {
+              toggleShuffle();
+            }}>
             <Icon name="shuffle" size={24} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
@@ -378,7 +477,10 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
           <TouchableOpacity onPress={skipToNext}>
             <Icon name="skip-next" size={24} color="white" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              toggleMenu();
+            }}>
             <Icon name="menu" size={24} color="white" />
           </TouchableOpacity>
         </Animated.View>
@@ -423,6 +525,52 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
           />
         </Animated.View>
       </TouchableOpacity>
+      {renderMenu()}
     </Animated.View>
   );
 }
+
+// 스타일 정의
+const styles = StyleSheet.create({
+  menuContainer: {
+    flex: 1,
+    paddingTop: 20,
+    backgroundColor: Colors.bgBlack,
+  },
+  songItem: {
+    flexDirection: 'row',
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.gray,
+    alignItems: 'center',
+  },
+  artwork: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginRight: 10,
+  },
+  songInfo: {
+    marginLeft: 10,
+  },
+  songTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: Colors.white,
+  },
+  songArtist: {
+    fontSize: 14,
+    color: '#666',
+  },
+  closeButton: {
+    padding: 15,
+    alignItems: 'center',
+    backgroundColor: Colors.gray, // 닫기 버튼 배경을 어둡게 설정
+  },
+  playing: {
+    backgroundColor: Colors.accent1,
+  },
+  playingTitle: {
+    color: 'black', // 재생 중인 트랙의 제목 색상을 검은색으로 설정
+  },
+});

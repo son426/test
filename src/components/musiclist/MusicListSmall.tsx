@@ -8,7 +8,7 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ISongData } from '../../screens/MainScreen/MainScreen';
 
 const { width } = Dimensions.get('window');
@@ -118,7 +118,7 @@ function MusicListSmallItem({
         </Text>
       </View>
       <View style={styles.menuIconContainer}>
-        <Icon name="menu" color="white" size={12} />
+        <Icon name="dots-vertical" color="white" size={12} />
       </View>
     </View>
   );

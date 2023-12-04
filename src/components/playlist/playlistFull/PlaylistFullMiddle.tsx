@@ -61,6 +61,22 @@ interface MiddleTitleProps {
 }
 
 function MiddleTitle({ songName, genre }: MiddleTitleProps) {
+  const [likeStatus, setLikeStatus] = useState<boolean | null>(null);
+
+  const mockApiCall = async () => {
+    console.log('좋아요 api');
+  };
+
+  const handleLike = async () => {
+    await mockApiCall();
+    setLikeStatus(likeStatus === true ? null : true);
+  };
+
+  const handleDislike = async () => {
+    await mockApiCall();
+    setLikeStatus(likeStatus === false ? null : false);
+  };
+
   return (
     <View
       style={{
@@ -68,7 +84,13 @@ function MiddleTitle({ songName, genre }: MiddleTitleProps) {
         flexDirection: 'row',
         justifyContent: 'space-between',
       }}>
-      <Icon name="thumb-down" color={'white'} size={18} />
+      <TouchableOpacity onPress={handleDislike}>
+        <Icon
+          name="thumb-down"
+          color={likeStatus === false ? 'red' : 'white'}
+          size={18}
+        />
+      </TouchableOpacity>
       <View style={{ flex: 1, alignItems: 'center', paddingHorizontal: 20 }}>
         <Text
           numberOfLines={1}
@@ -82,7 +104,13 @@ function MiddleTitle({ songName, genre }: MiddleTitleProps) {
         </Text>
         <Text style={{ color: 'white', fontSize: 16 }}>{genre}</Text>
       </View>
-      <Icon name="thumb-up" color={'white'} size={18} />
+      <TouchableOpacity onPress={handleLike}>
+        <Icon
+          name="thumb-up"
+          color={likeStatus === true ? 'green' : 'white'}
+          size={18}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
