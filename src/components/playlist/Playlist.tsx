@@ -11,6 +11,7 @@ import {
   StyleSheet,
   FlatList,
   Modal,
+  SafeAreaView,
 } from 'react-native';
 
 import PlaylistMini from './PlaylistMini';
@@ -204,17 +205,81 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
       transparent={false}
       visible={isMenuVisible}
       onRequestClose={toggleMenu}>
-      <View style={styles.menuContainer}>
+      <SafeAreaView style={styles.menuContainer}>
+        <View style={styles.header}>
+          <View style={styles.left}>
+            {
+              <TouchableOpacity onPress={toggleMenu}>
+                <Text style={styles.backButtonText}>
+                  <Icon name="close" size={20} color="white" />
+                </Text>
+              </TouchableOpacity>
+            }
+          </View>
+          <View style={styles.center}>
+            <Text style={styles.headerTitle}>{'플레이리스트'}</Text>
+          </View>
+          <View style={styles.right}>
+            {/* {getLoginState.isLoggedIn && (
+                <TouchableOpacity onPress={handleLogout}>
+                  <Text>로그아웃</Text>
+                </TouchableOpacity>
+              )} */}
+          </View>
+        </View>
         <FlatList
           ref={flatListRef}
           data={songs}
           renderItem={renderSongItem}
           keyExtractor={item => item.id.toString()}
         />
-        <TouchableOpacity style={styles.closeButton} onPress={toggleMenu}>
-          <Text>Close</Text>
-        </TouchableOpacity>
-      </View>
+        {/* buttons */}
+        <Animated.View
+          style={{
+            height: 50,
+            width: width * 0.8,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginTop: 10,
+            marginLeft: width * 0.1,
+            marginBottom: 50,
+          }}>
+          <TouchableOpacity onPress={toggleShuffle}>
+            <Icon
+              name="shuffle"
+              size={24}
+              color={isShuffle ? Colors.accent1 : 'white'}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              skipToPrev();
+            }}>
+            <Icon name="skip-previous" size={24} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => togglePlayBack(playBackState)}>
+            <View
+              style={{
+                backgroundColor: '#ffffff20',
+                padding: 14,
+                borderRadius: 100,
+              }}>
+              {playBackState.state === State.Playing ? (
+                <Icon name="pause" size={24} color="white" />
+              ) : (
+                <Icon name="play" size={24} color="white" />
+              )}
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={skipToNext}>
+            <Icon name="skip-next" size={24} color="white" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={toggleMenu}>
+            <Icon name="menu" size={24} color={Colors.accent1} />
+          </TouchableOpacity>
+        </Animated.View>
+      </SafeAreaView>
     </Modal>
   );
 
@@ -390,22 +455,39 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
               outputRange: [0, 0, width * 0.1],
             }),
           }}>
-          <Slider
+          <TouchableOpacity
             style={{
               width: '100%',
-              height: 10,
-              flexDirection: 'row',
+              height: 30,
+              borderWidth: 1,
+              borderColor: 'red',
             }}
-            value={progress.position}
-            minimumValue={0}
-            maximumValue={progress.duration}
-            thumbTintColor="#ffd369"
-            minimumTrackTintColor="#ffd369"
-            maximumTrackTintColor="#ffffff60"
-            onSlidingComplete={async value => {
-              await TrackPlayer.seekTo(value);
-            }}
-          />
+            onPress={e => {
+              // Calculate the new slider value based on tap location
+              console.log('clicked !!');
+              const newSliderValue =
+                (e.nativeEvent.locationX / sliderWidth) * progress.duration;
+
+              console.log('newSliderValue : ', newSliderValue);
+              // Update the slider's value and seek the track
+              TrackPlayer.seekTo(newSliderValue);
+            }}>
+            <Slider
+              style={{
+                width: '100%',
+                flexDirection: 'row',
+              }}
+              value={progress.position}
+              minimumValue={0}
+              maximumValue={progress.duration}
+              thumbTintColor="#ffd369"
+              minimumTrackTintColor="#ffd369"
+              maximumTrackTintColor="#ffffff60"
+              onSlidingComplete={async value => {
+                await TrackPlayer.seekTo(value);
+              }}
+            />
+          </TouchableOpacity>
           <View
             style={{
               flexDirection: 'row',
@@ -448,11 +530,12 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
             justifyContent: 'space-between',
             marginTop: 10,
           }}>
-          <TouchableOpacity
-            onPress={() => {
-              toggleShuffle();
-            }}>
-            <Icon name="shuffle" size={24} color="white" />
+          <TouchableOpacity onPress={toggleShuffle}>
+            <Icon
+              name="shuffle"
+              size={24}
+              color={isShuffle ? Colors.accent1 : 'white'}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -540,8 +623,8 @@ const styles = StyleSheet.create({
   songItem: {
     flexDirection: 'row',
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.gray,
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#808080',
     alignItems: 'center',
   },
   artwork: {
@@ -572,5 +655,34 @@ const styles = StyleSheet.create({
   },
   playingTitle: {
     color: 'black', // 재생 중인 트랙의 제목 색상을 검은색으로 설정
+  },
+
+  header: {
+    height: 48,
+    flexDirection: 'row',
+  },
+  left: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  center: {
+    flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  right: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: Colors.white,
+  },
+  backButtonText: {
+    fontSize: 16,
+    color: Colors.white,
   },
 });

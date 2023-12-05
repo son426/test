@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* Homebrew_fe2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* Homebrew_fe2Tests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-Homebrew_fe2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-Homebrew_fe2.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		7699B88040F8A987B510C191 /* libPods-Homebrew_fe2-Homebrew_fe2Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-Homebrew_fe2-Homebrew_fe2Tests.a */; };
+		370B0C074291EEC3FA61A261 /* libPods-Homebrew_fe2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C19D710291D82A5269F796 /* libPods-Homebrew_fe2.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		AF60C7C3B3AAF2D72D47943E /* libPods-Homebrew_fe2-Homebrew_fe2Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC40B619E3D3EFACE72731C8 /* libPods-Homebrew_fe2-Homebrew_fe2Tests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,13 +36,13 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Homebrew_fe2/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Homebrew_fe2/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Homebrew_fe2/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-Homebrew_fe2-Homebrew_fe2Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Homebrew_fe2-Homebrew_fe2Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B4392A12AC88292D35C810B /* Pods-Homebrew_fe2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Homebrew_fe2.debug.xcconfig"; path = "Target Support Files/Pods-Homebrew_fe2/Pods-Homebrew_fe2.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-Homebrew_fe2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Homebrew_fe2.release.xcconfig"; path = "Target Support Files/Pods-Homebrew_fe2/Pods-Homebrew_fe2.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-Homebrew_fe2-Homebrew_fe2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Homebrew_fe2-Homebrew_fe2Tests.debug.xcconfig"; path = "Target Support Files/Pods-Homebrew_fe2-Homebrew_fe2Tests/Pods-Homebrew_fe2-Homebrew_fe2Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-Homebrew_fe2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Homebrew_fe2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		28DA044351EF179830F5AC03 /* Pods-Homebrew_fe2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Homebrew_fe2.release.xcconfig"; path = "Target Support Files/Pods-Homebrew_fe2/Pods-Homebrew_fe2.release.xcconfig"; sourceTree = "<group>"; };
+		36FD6E2F7CD9D7B20C17ED2D /* Pods-Homebrew_fe2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Homebrew_fe2.debug.xcconfig"; path = "Target Support Files/Pods-Homebrew_fe2/Pods-Homebrew_fe2.debug.xcconfig"; sourceTree = "<group>"; };
+		535721C4BA80A76B4086ADA0 /* Pods-Homebrew_fe2-Homebrew_fe2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Homebrew_fe2-Homebrew_fe2Tests.release.xcconfig"; path = "Target Support Files/Pods-Homebrew_fe2-Homebrew_fe2Tests/Pods-Homebrew_fe2-Homebrew_fe2Tests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Homebrew_fe2/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-Homebrew_fe2-Homebrew_fe2Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Homebrew_fe2-Homebrew_fe2Tests.release.xcconfig"; path = "Target Support Files/Pods-Homebrew_fe2-Homebrew_fe2Tests/Pods-Homebrew_fe2-Homebrew_fe2Tests.release.xcconfig"; sourceTree = "<group>"; };
+		BC40B619E3D3EFACE72731C8 /* libPods-Homebrew_fe2-Homebrew_fe2Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Homebrew_fe2-Homebrew_fe2Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3C19D710291D82A5269F796 /* libPods-Homebrew_fe2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Homebrew_fe2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7E4755B96EE2225B90EC633 /* Pods-Homebrew_fe2-Homebrew_fe2Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Homebrew_fe2-Homebrew_fe2Tests.debug.xcconfig"; path = "Target Support Files/Pods-Homebrew_fe2-Homebrew_fe2Tests/Pods-Homebrew_fe2-Homebrew_fe2Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-Homebrew_fe2-Homebrew_fe2Tests.a in Frameworks */,
+				AF60C7C3B3AAF2D72D47943E /* libPods-Homebrew_fe2-Homebrew_fe2Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-Homebrew_fe2.a in Frameworks */,
+				370B0C074291EEC3FA61A261 /* libPods-Homebrew_fe2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-Homebrew_fe2.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-Homebrew_fe2-Homebrew_fe2Tests.a */,
+				D3C19D710291D82A5269F796 /* libPods-Homebrew_fe2.a */,
+				BC40B619E3D3EFACE72731C8 /* libPods-Homebrew_fe2-Homebrew_fe2Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -140,10 +140,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-Homebrew_fe2.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-Homebrew_fe2.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-Homebrew_fe2-Homebrew_fe2Tests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-Homebrew_fe2-Homebrew_fe2Tests.release.xcconfig */,
+				36FD6E2F7CD9D7B20C17ED2D /* Pods-Homebrew_fe2.debug.xcconfig */,
+				28DA044351EF179830F5AC03 /* Pods-Homebrew_fe2.release.xcconfig */,
+				D7E4755B96EE2225B90EC633 /* Pods-Homebrew_fe2-Homebrew_fe2Tests.debug.xcconfig */,
+				535721C4BA80A76B4086ADA0 /* Pods-Homebrew_fe2-Homebrew_fe2Tests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -155,12 +155,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "Homebrew_fe2Tests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				16A5FA5FE80899E796413334 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				0542E542B79BBD62346E914A /* [CP] Embed Pods Frameworks */,
+				965A92FFEC435DF46CA7B763 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -176,14 +176,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Homebrew_fe2" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				250248C75A5A2327EB32C125 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				D69ADF5368EA5E0ECFC458AB /* [CP] Embed Pods Frameworks */,
+				4507F43F82C16280C473A2E3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -266,24 +266,24 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		0542E542B79BBD62346E914A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2/Pods-Homebrew_fe2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2-Homebrew_fe2Tests/Pods-Homebrew_fe2-Homebrew_fe2Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2/Pods-Homebrew_fe2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2-Homebrew_fe2Tests/Pods-Homebrew_fe2-Homebrew_fe2Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2/Pods-Homebrew_fe2-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2-Homebrew_fe2Tests/Pods-Homebrew_fe2-Homebrew_fe2Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		16A5FA5FE80899E796413334 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -305,7 +305,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		250248C75A5A2327EB32C125 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -327,24 +327,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2-Homebrew_fe2Tests/Pods-Homebrew_fe2-Homebrew_fe2Tests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2-Homebrew_fe2Tests/Pods-Homebrew_fe2-Homebrew_fe2Tests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2-Homebrew_fe2Tests/Pods-Homebrew_fe2-Homebrew_fe2Tests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
+		4507F43F82C16280C473A2E3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -361,7 +344,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2/Pods-Homebrew_fe2-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
+		965A92FFEC435DF46CA7B763 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -376,6 +359,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2-Homebrew_fe2Tests/Pods-Homebrew_fe2-Homebrew_fe2Tests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D69ADF5368EA5E0ECFC458AB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2/Pods-Homebrew_fe2-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2/Pods-Homebrew_fe2-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Homebrew_fe2/Pods-Homebrew_fe2-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -430,9 +430,10 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-Homebrew_fe2-Homebrew_fe2Tests.debug.xcconfig */;
+			baseConfigurationReference = D7E4755B96EE2225B90EC633 /* Pods-Homebrew_fe2-Homebrew_fe2Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = S4QMJ4PJKZ;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -457,10 +458,11 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-Homebrew_fe2-Homebrew_fe2Tests.release.xcconfig */;
+			baseConfigurationReference = 535721C4BA80A76B4086ADA0 /* Pods-Homebrew_fe2-Homebrew_fe2Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = S4QMJ4PJKZ;
 				INFOPLIST_FILE = Homebrew_fe2Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -481,11 +483,12 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-Homebrew_fe2.debug.xcconfig */;
+			baseConfigurationReference = 36FD6E2F7CD9D7B20C17ED2D /* Pods-Homebrew_fe2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4QMJ4PJKZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Homebrew_fe2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -508,11 +511,12 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-Homebrew_fe2.release.xcconfig */;
+			baseConfigurationReference = 28DA044351EF179830F5AC03 /* Pods-Homebrew_fe2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S4QMJ4PJKZ;
 				INFOPLIST_FILE = Homebrew_fe2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
