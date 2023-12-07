@@ -27,6 +27,7 @@ import TrackPlayer, {
 import { songs } from '../../dummy';
 import { useRecoilState } from 'recoil';
 import { trackInfoState } from '../../atoms';
+import useTrackPlayer from '../../hooks/useTrackPlayer';
 
 export interface ISongData {
   url: string;
@@ -40,21 +41,14 @@ export interface ISongData {
   id?: number;
 }
 
-const togglePlayBack = async (playBackState: any) => {
-  const currentTrack = await TrackPlayer.getActiveTrackIndex();
-  if (playBackState.state == State.Paused) {
-    await TrackPlayer.play();
-  } else {
-    await TrackPlayer.pause();
-  }
-};
+const data1 = [
+  [songs[0], songs[1], songs[2], songs[3]],
+  [songs[4], songs[5], songs[6], songs[7]],
+];
+const data2 = [songs[8], songs[9], songs[10], songs[11], songs[12]];
 
 export default function MainScreen() {
-  const playBackState = usePlaybackState();
-  const progress = useProgress();
-
   const [trackInfo, setTrackInfo] = useRecoilState(trackInfoState);
-
   const playlistAnimation = useRef(new Animated.Value(0)).current;
   const {
     onScrollBeginDrag,
@@ -63,46 +57,19 @@ export default function MainScreen() {
     headerAnimation,
     headerBackgroundAnimation,
   } = useMainScroll();
-
-  const data1 = [
-    [songs[0], songs[1], songs[2], songs[3]],
-    [songs[4], songs[5], songs[6], songs[7]],
-  ];
-  const data2 = [songs[8], songs[9], songs[10], songs[11], songs[12]];
+  const { addTracks, playTrack, skipTrack, pauseTrack } = useTrackPlayer();
 
   const handleSongSelect = async (song: ISongData) => {
     try {
       if (song.id) {
         setTrackInfo(song);
-        await TrackPlayer.skip(song.id);
-        await TrackPlayer.play();
+        await skipTrack(song.id);
+        await playTrack();
       }
     } catch (err) {
-      console.error('error : ', err);
+      console.error(' handleSongSelect error : ', err);
     }
   };
-
-  useEffect(() => {
-    const setupPlayer = async () => {
-      try {
-        await TrackPlayer.setupPlayer();
-        await TrackPlayer.updateOptions({
-          capabilities: [
-            Capability.Play,
-            Capability.Pause,
-            Capability.SkipToNext,
-            Capability.SkipToPrevious,
-            Capability.Stop,
-          ],
-        });
-        await TrackPlayer.add(songs);
-      } catch (error) {
-        throw error;
-      }
-    };
-
-    setupPlayer();
-  }, []);
 
   return (
     <Screen title="메인" headerAnimation={headerAnimation}>
@@ -117,8 +84,7 @@ export default function MainScreen() {
         </View>
       </ScrollView>
       <Playlist playlistAnimation={playlistAnimation} />
-      {/* <Bottom playlistAnimation={playlistAnimation} /> */}
-      <View></View>
+      <Bottom playlistAnimation={playlistAnimation} />
     </Screen>
   );
 }

@@ -11,18 +11,34 @@ import SearchScreen from './src/screens/SearchScreen/SearchScreen';
 import { RecoilRoot, useRecoilState } from 'recoil';
 import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { loginState } from './src/atoms';
+import { loginState, trackInfoState } from './src/atoms';
+import TrackPlayer, { Capability } from 'react-native-track-player';
+import { songs } from './src/dummy';
+import useTrackPlayer from './src/hooks/useTrackPlayer';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Screens = () => {
   const [getLoginState, setLoginState] = useRecoilState(loginState);
   const [getLoginStateFromStorage, setLoginStateFromStorage] = useState(null);
+
+  const [trackInfo, setTrackInfo] = useRecoilState(trackInfoState);
+
   const [isLoading, setIsLoading] = useState(true);
+
+  const { isPlayerReady, setupPlayer, addTracks, playTrack } = useTrackPlayer();
+
+  useEffect(() => {
+    const firstSetup = async () => {
+      await setupPlayer();
+      await addTracks(songs);
+    };
+
+    firstSetup();
+  }, []);
 
   useEffect(() => {
     const loadLoginState = async () => {
       const savedState = await AsyncStorage.getItem('loginState');
-      console.log('savedState :', savedState);
       if (savedState) {
         const parsedState = JSON.parse(savedState);
         setLoginStateFromStorage(parsedState);
@@ -37,10 +53,10 @@ const Screens = () => {
 
   const renderRootStack = () => {
     // 로그인 된 상태
-    if (isLoading) {
+    if (isLoading || !isPlayerReady) {
       return <Stack.Screen name="Loading" component={LoadingScreen} />;
     }
-    console.log('getLoginState : ', getLoginState);
+
     if (getLoginState.isLoggedIn)
       return (
         <>

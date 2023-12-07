@@ -65,11 +65,11 @@ export default function Screen({
               <Text style={styles.headerTitle}>{title}</Text>
             </View>
             <View style={styles.right}>
-              {/* {getLoginState.isLoggedIn && (
+              {getLoginState.isLoggedIn && (
                 <TouchableOpacity onPress={handleLogout}>
-                  <Text>로그아웃</Text>
+                  <Text>처음으로</Text>
                 </TouchableOpacity>
-              )} */}
+              )}
             </View>
           </View>
         </Animated.View>
@@ -89,11 +89,11 @@ export default function Screen({
             <Text style={styles.headerTitle}>{title}</Text>
           </View>
           <View style={styles.right}>
-            {/* {getLoginState.isLoggedIn && (
+            {getLoginState.isLoggedIn && (
               <TouchableOpacity onPress={handleLogout}>
-                <Text>로그아웃</Text>
+                <Text>처음으로</Text>
               </TouchableOpacity>
-            )} */}
+            )}
           </View>
         </View>
       )}

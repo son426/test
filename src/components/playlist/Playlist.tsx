@@ -33,17 +33,9 @@ import { useRecoilState } from 'recoil';
 import { trackInfoState } from '../../atoms';
 import { ISongData } from '../../screens/MainScreen/MainScreen';
 import Colors from '../../modules/Colors';
+import useTrackPlayer from '../../hooks/useTrackPlayer';
 
 const { width, height } = Dimensions.get('window');
-
-const togglePlayBack = async (playBackState: any) => {
-  const currentTrack = await TrackPlayer.getActiveTrackIndex();
-  if (playBackState.state == State.Paused) {
-    await TrackPlayer.play();
-  } else {
-    await TrackPlayer.pause();
-  }
-};
 
 interface PlaylistProps {
   playlistAnimation: Animated.Value;
@@ -72,6 +64,16 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isShuffle, setIsShuffle] = useState(false);
 
+  const { playTrack, pauseTrack, skipTrack } = useTrackPlayer();
+
+  const togglePlayBack = async (playBackState: any) => {
+    if (playBackState.state == State.Paused) {
+      await playTrack();
+    } else {
+      await pauseTrack();
+    }
+  };
+
   const toggleMenu = async () => {
     setIsMenuVisible(!isMenuVisible);
 
@@ -98,7 +100,8 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
     const currentTrackId = await TrackPlayer.getActiveTrackIndex();
     if (currentTrackId) {
       const track = await TrackPlayer.getTrack(currentTrackId);
-
+      console.log('now Track ID : ', currentTrackId);
+      console.log('now Track title : ', track?.title);
       if (
         track &&
         track.title &&
@@ -123,11 +126,11 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
   const skipToNext = async () => {
     if (isShuffle) {
       const randomIndex = Math.floor(Math.random() * songs.length);
-      await TrackPlayer.skip(randomIndex);
+      await skipTrack(randomIndex);
     } else {
       await TrackPlayer.skipToNext();
+      await updateCurrentTrackInfo();
     }
-    await updateCurrentTrackInfo();
   };
 
   const skipToPrev = async () => {
@@ -178,8 +181,7 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
       toggleMenu();
 
       // 그 다음 실제로 트랙을 변경
-      await TrackPlayer.skip(index);
-      await updateCurrentTrackInfo();
+      await skipTrack(index);
     };
 
     return (
@@ -459,8 +461,8 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
             style={{
               width: '100%',
               height: 30,
-              borderWidth: 1,
-              borderColor: 'red',
+              // borderWidth: 1,
+              // borderColor: 'red',
             }}
             onPress={e => {
               // Calculate the new slider value based on tap location
@@ -597,8 +599,6 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
             style={{
               width: 50,
               height: 50,
-              // borderWidth: 1,
-              // borderColor: 'pink',
             }}
           />
           <PlaylistMini

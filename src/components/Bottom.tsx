@@ -21,18 +21,20 @@ export default function Bottom({ playlistAnimation }: IBottom) {
   return (
     <Animated.View
       style={{
-        marginBottom: playlistAnimation.interpolate({
-          inputRange: [0, height / 2, height],
-          outputRange: [0, -50, -50],
-        }),
+        position: 'absolute',
+        bottom: -getBottomSpace(),
+        width: '100%',
       }}>
-      <View
-        style={{ backgroundColor: '#222', paddingBottom: getBottomSpace() }}>
-        <View style={{ height: BOTTOM_HEIGHT }}>
+      {/* Safe 영역까지 포함하는 View에 배경색 설정 */}
+      <View style={{ backgroundColor: '#222' }}>
+        <View
+          style={{
+            height: getBottomSpace(),
+          }}>
           <View style={{ flexDirection: 'row' }}>
-            <BottomItem name={'home-filled'} title={'홈'} route="Main" />
-            {/* <BottomItem name={'explore'} title={'둘러보기'} route="Search" /> */}
-            <BottomItem name={'library-music'} title={'보관함'} route="My" />
+            {/* <BottomItem name={'home-filled'} title={'홈'} route="Main" />
+            <BottomItem name={'explore'} title={'둘러보기'} route="Search" />
+            <BottomItem name={'library-music'} title={'보관함'} route="My" /> */}
           </View>
         </View>
       </View>

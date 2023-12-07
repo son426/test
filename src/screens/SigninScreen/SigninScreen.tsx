@@ -20,7 +20,7 @@ export default function SigninScreen() {
   };
 
   return (
-    <Screen title="로그인">
+    <Screen title="">
       <View style={styles.container}>
         <Image
           source={require('../../assets/image/logo.png')}
@@ -28,7 +28,7 @@ export default function SigninScreen() {
         />
         <Text style={styles.title}>Homebrew</Text>
         <TouchableOpacity onPress={onPressSignin} style={styles.button}>
-          <Text style={styles.buttonText}>구글 로그인</Text>
+          <Text style={styles.buttonText}>바로 시작하기</Text>
         </TouchableOpacity>
       </View>
     </Screen>
