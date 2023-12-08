@@ -2,6 +2,7 @@ import { useState } from 'react';
 import TrackPlayer, { Capability } from 'react-native-track-player';
 import { useRecoilState } from 'recoil';
 import { TrackInfo, trackInfoState } from '../atoms';
+import { songs1_1 } from '../dummy';
 
 const useTrackPlayer = () => {
   const [isPlayerReady, setIsPlayerReady] = useState(false);
@@ -26,31 +27,51 @@ const useTrackPlayer = () => {
     }
   };
 
-  const addTracks = async tracks => {
+  interface ITrackInfo {
+    url: string;
+    id: string;
+  }
+
+  const updateTrackInfo = (songId: string) => {
+    const songsData = songs1_1;
+    const songData = songsData.find(song => song.id === songId);
+
+    if (songData) {
+      const trackInfo = {
+        id: songData.id,
+        title: songData.title ?? '',
+        artist: songData.artist,
+        genre: songData.genre,
+        artwork: songData.artwork,
+        url: '',
+      };
+
+      // Recoil state 업데이트
+      setCurrentTrack(trackInfo);
+    }
+  };
+
+  interface ITrack {
+    id: string;
+    url: any;
+  }
+
+  const addTracks = async (track: ITrack) => {
     try {
-      await TrackPlayer.add(tracks);
+      await TrackPlayer.add(track);
     } catch (error) {
       console.error('addTracks Error:', error);
     }
   };
 
-  const skipTrack = async (trackId: number) => {
+  const findTrackIndexById = async (trackId: string) => {
+    const queue = await TrackPlayer.getQueue();
+    return queue.findIndex(track => track.id === trackId);
+  };
+
+  const skipTrack = async (trackIndex: number) => {
     try {
-      const trackDetail = await TrackPlayer.getTrack(trackId);
-      if (trackDetail) {
-        const trackInfo: TrackInfo = {
-          id: trackDetail.id,
-          url: trackDetail.url ?? '',
-          title: trackDetail.title ?? '',
-          artist: trackDetail.artist,
-          album: trackDetail.album,
-          genre: trackDetail.genre,
-          artwork: trackDetail.artwork,
-          duration: trackDetail.duration,
-        };
-        setCurrentTrack(trackInfo);
-      }
-      await TrackPlayer.skip(trackId);
+      await TrackPlayer.skip(trackIndex);
     } catch (error) {
       console.error('skipTrack Error:', error);
     }
@@ -79,6 +100,8 @@ const useTrackPlayer = () => {
     playTrack,
     skipTrack,
     pauseTrack,
+    updateTrackInfo,
+    findTrackIndexById,
   };
 };
 

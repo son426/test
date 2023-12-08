@@ -13,7 +13,7 @@ import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loginState, trackInfoState } from './src/atoms';
 import TrackPlayer, { Capability } from 'react-native-track-player';
-import { songs } from './src/dummy';
+import { songs, songs2 } from './src/dummy';
 import useTrackPlayer from './src/hooks/useTrackPlayer';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -30,7 +30,8 @@ const Screens = () => {
   useEffect(() => {
     const firstSetup = async () => {
       await setupPlayer();
-      await addTracks(songs);
+      // await addTracks(songs);
+      // await addTracks(songs2[0]);
     };
 
     firstSetup();

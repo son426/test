@@ -12,7 +12,7 @@ export const loginState = atom<LoginState>({
 });
 
 export interface TrackInfo {
-  url: string;
+  url: any;
   title: string;
   artist?: string;
   album?: string;
@@ -20,7 +20,7 @@ export interface TrackInfo {
   date?: Date;
   artwork?: string;
   duration?: number;
-  id?: number;
+  id: string;
 }
 
 export const trackInfoState = atom<TrackInfo>({

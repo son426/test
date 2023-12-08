@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ISongData } from '../../screens/MainScreen/MainScreen';
+import { chunkArray } from '../../utils';
 
 const { width } = Dimensions.get('window');
 
@@ -20,7 +21,7 @@ interface MusicListSmallItemProps {
 }
 
 interface MusicListSmallProps {
-  data: ISongData[][];
+  data: ISongData[];
   onSongSelect: (arg: ISongData) => void;
 }
 
@@ -31,6 +32,8 @@ export default function MusicListSmall({
   const scrollStartRef = useRef<number>(0);
   const scrollRef = useRef<ScrollView>(null);
   const pageRef = useRef<number>(1);
+
+  const transformedData = chunkArray(data);
 
   return (
     <View style={styles.container}>
@@ -49,7 +52,7 @@ export default function MusicListSmall({
           const x = e.nativeEvent.contentOffset.x;
           const dx = x - scrollStartRef.current;
 
-          if (width / 4 < dx && pageRef.current !== 3) {
+          if (width / 4 < dx && pageRef.current !== 999) {
             scrollRef.current?.scrollTo({
               x: width * 0.92 * pageRef.current,
               animated: true,
@@ -79,7 +82,7 @@ export default function MusicListSmall({
             });
           }
         }}>
-        {data.map((outerArray, outerIndex) => {
+        {transformedData.map((outerArray, outerIndex) => {
           return (
             <View style={styles.outerView} key={`outer-${outerIndex}`}>
               {outerArray.map((songData, innerIndex) => {

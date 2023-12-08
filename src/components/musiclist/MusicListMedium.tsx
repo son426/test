@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     width: width / 4,
     fontSize: 13,
-    height: 60,
+    height: 30,
   },
   titleContainer: {
     flexDirection: 'row',

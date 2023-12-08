@@ -24,13 +24,13 @@ import TrackPlayer, {
   useProgress,
   useTrackPlayerEvents,
 } from 'react-native-track-player';
-import { songs } from '../../dummy';
+import { songs1_1, songs1_2, songs2_1 } from '../../dummy';
 import { useRecoilState } from 'recoil';
-import { trackInfoState } from '../../atoms';
+import { TrackInfo, trackInfoState } from '../../atoms';
 import useTrackPlayer from '../../hooks/useTrackPlayer';
 
 export interface ISongData {
-  url: string;
+  url?: string;
   title: string;
   artist?: string;
   album?: string;
@@ -38,14 +38,8 @@ export interface ISongData {
   date?: Date;
   artwork?: string;
   duration?: number;
-  id?: number;
+  id: string;
 }
-
-const data1 = [
-  [songs[0], songs[1], songs[2], songs[3]],
-  [songs[4], songs[5], songs[6], songs[7]],
-];
-const data2 = [songs[8], songs[9], songs[10], songs[11], songs[12]];
 
 export default function MainScreen() {
   const [trackInfo, setTrackInfo] = useRecoilState(trackInfoState);
@@ -57,15 +51,28 @@ export default function MainScreen() {
     headerAnimation,
     headerBackgroundAnimation,
   } = useMainScroll();
-  const { addTracks, playTrack, skipTrack, pauseTrack } = useTrackPlayer();
+  const {
+    addTracks,
+    playTrack,
+    skipTrack,
+    findTrackIndexById,
+    updateTrackInfo,
+  } = useTrackPlayer();
+
+  const data1 = songs1_1;
+  const data2 = songs2_1;
 
   const handleSongSelect = async (song: ISongData) => {
     try {
-      if (song.id) {
-        setTrackInfo(song);
-        await skipTrack(song.id);
-        await playTrack();
-      }
+      updateTrackInfo(song.id);
+
+      const songsData = songs1_2;
+      const nowSong = songsData.filter(eachSong => eachSong.id === song.id)[0];
+      await addTracks(nowSong);
+
+      const nowIndex = await findTrackIndexById(song.id);
+      await skipTrack(nowIndex);
+      await playTrack();
     } catch (err) {
       console.error(' handleSongSelect error : ', err);
     }

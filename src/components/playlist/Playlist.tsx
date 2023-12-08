@@ -50,21 +50,19 @@ export interface ITrackInfo {
 }
 
 export default function Playlist({ playlistAnimation }: PlaylistProps) {
-  const playlistRef = useRef('mini'); //mini, full
+  const playlistRef = useRef('mini'); // mini, full
   const songSlider = useRef(null); // flatlist ref
+  const scrollX = useRef(new Animated.Value(0)).current;
+  const flatListRef = useRef(null);
+
+  const { playTrack, pauseTrack, skipTrack } = useTrackPlayer();
   const playBackState = usePlaybackState();
   const progress = useProgress();
-  const scrollX = useRef(new Animated.Value(0)).current;
-
-  const flatListRef = useRef(null);
 
   const [currentTrackInfo, setCurrentTrackInfo] =
     useRecoilState(trackInfoState);
-
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isShuffle, setIsShuffle] = useState(false);
-
-  const { playTrack, pauseTrack, skipTrack } = useTrackPlayer();
 
   const togglePlayBack = async (playBackState: any) => {
     if (playBackState.state == State.Paused) {
@@ -73,7 +71,9 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
       await pauseTrack();
     }
   };
-
+  const toggleShuffle = () => {
+    setIsShuffle(!isShuffle);
+  };
   const toggleMenu = async () => {
     setIsMenuVisible(!isMenuVisible);
 
@@ -92,16 +92,10 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
       }
     }
   };
-  const toggleShuffle = () => {
-    setIsShuffle(!isShuffle);
-  };
-
   const updateCurrentTrackInfo = async () => {
     const currentTrackId = await TrackPlayer.getActiveTrackIndex();
     if (currentTrackId) {
       const track = await TrackPlayer.getTrack(currentTrackId);
-      console.log('now Track ID : ', currentTrackId);
-      console.log('now Track title : ', track?.title);
       if (
         track &&
         track.title &&
@@ -132,7 +126,6 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
       await updateCurrentTrackInfo();
     }
   };
-
   const skipToPrev = async () => {
     await TrackPlayer.skipToPrevious();
     await updateCurrentTrackInfo();
@@ -142,7 +135,6 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
     item: ISongData;
     index: number;
   }
-
   const renderSongs = ({ item, index }: IRenderSongs) => {
     return (
       <Animated.View
@@ -169,7 +161,6 @@ export default function Playlist({ playlistAnimation }: PlaylistProps) {
     const isPlaying = currentTrackInfo.id === item.id;
 
     const playSong = async () => {
-      // 먼저 UI를 업데이트하여 곡이 변경되었다는 것을 표시
       setCurrentTrackInfo({
         id: item.id,
         title: item.title,
